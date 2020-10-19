@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('TriTri'),
+        backgroundColor: MyColors.lightBlue,
       ),
       backgroundColor: MyColors.white,
       body: SafeArea(
@@ -33,7 +34,7 @@ class HomePage extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(5.0),
-                height: 300,
+                height: 900, //TODO: Размер поля для скрола нужно как-то конкретнее определить
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: humanData.items.length,
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                         ChangeNotifierProvider.value(
                             value: humanData.items[index],
                             child: ItemHuman(),
-                        )
+                        ),
                 ),
               ),
             ],

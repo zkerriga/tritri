@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 
 class Human with ChangeNotifier {
@@ -18,6 +17,13 @@ class Human with ChangeNotifier {
       @required this.skillsList,
       @required this.hobbieList
   });
+
+  getSkillsString() {
+    return skillsList.join(', ');
+  }
+  getHobbiesString() {
+    return hobbieList.join(', ');
+  }
 }
 
 class HumansDataProvider with ChangeNotifier {
