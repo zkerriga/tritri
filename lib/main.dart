@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/pages/homePage.dart';
 
@@ -10,16 +12,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'TriTri',
-      theme: ThemeData(
-        primarySwatch: MyColors.palette,
-        backgroundColor: MyColors.white,
-        textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
-        )
-      ),
-      home: HomePage(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<HumansDataProvider>(
+              create: (context) => HumansDataProvider(),
+          )
+        ],
+        child: MaterialApp(
+          title: 'TriTri',
+          theme: ThemeData(
+            primarySwatch: MyColors.palette,
+            backgroundColor: MyColors.white,
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context).textTheme,
+            )
+          ),
+          home: HomePage(),
+        ),
     );
+
   }
 }

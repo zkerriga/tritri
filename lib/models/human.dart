@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 
-class Human {
+class Human with ChangeNotifier {
   final int     id;
   final String  firstName;
   final String  lastName;

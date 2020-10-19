@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
+import 'package:tritri/widgets/itemHuman.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final humanData = Provider.of<HumansDataProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('TriTri'),
@@ -26,7 +32,17 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
-                child: Text('[+] Вертикальный список карточек'),
+                padding: const EdgeInsets.all(5.0),
+                height: 300,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: humanData.items.length,
+                    itemBuilder: (context, int index) =>
+                        ChangeNotifierProvider.value(
+                            value: humanData.items[index],
+                            child: ItemHuman(),
+                        )
+                ),
               ),
             ],
           ),
