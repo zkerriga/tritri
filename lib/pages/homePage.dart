@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
       backgroundColor: MyColors.white,
       body: SafeArea(
         child: Container(
-          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             color: MyColors.white,
           ),
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget {
               Container(
                 child: ListTile(
                   title: Text('Все'),
-                  trailing: Icon(Icons.panorama_horizontal),
+                  // trailing: Icon(Icons.panorama_horizontal),
                 ),
               ),
               Container(
