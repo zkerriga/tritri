@@ -1,8 +1,9 @@
 import 'dart:collection';
-import 'dart:io';
+// import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tritri/database/databaseHelper.dart';
+// import 'package:tritri/database/databaseHelper.dart';
+// import 'package:tritri/widgets/itemHuman.dart';
 
 class Human with ChangeNotifier {
   int           id;
@@ -55,25 +56,24 @@ class Human with ChangeNotifier {
 }
 
 class HumansDataProvider with ChangeNotifier {
-  var _db = DatabaseHelper();
-  List<Human> _items;
+  // var _db = DatabaseHelper();
+  // List<Human> _items;
 
-  HumansDataProvider() {
-    _itemsInit();
-    sleep(Duration(seconds: 2));
-  }
+  // HumansDataProvider() {
+  //   _itemsInit();
+  // }
 
-  _itemsInit() async {
-    _items = await _db.getAllHumans();
-  }
-  /*
+  // _itemsInit() async {
+  //   _items = await _db.getAllHumans();
+  //   print("Check!");
+  // }
   List<Human> _items = [
     Human('Bob', 'Dillan', 't.me/bob', ['design', 'art'], ['cook']),
     Human('Dan', 'El', 't.me/zkerriga', ['design', 'programming'], ['music', 'urban']),
 
     // Human(firstName: 'Bob', lastName: 'Dillan', link: 't.me/bob', skillsList: ['design', 'art'], hobbiesList: ['cook']),
     // Human(firstName: 'Dan', lastName: 'El', link: 't.me/zkerriga', skillsList: ['design', 'programming'], hobbiesList: ['music', 'urban']),
-  ];*/
+  ];
 
   addFackenHuman() {
     addHuman(Human("Test", "${DateTime.now()}", "t.me/test", ["test1", "test2", "test3"], ["kek1", "kek2"]));
@@ -81,10 +81,21 @@ class HumansDataProvider with ChangeNotifier {
   bool  addHuman(Human human) {
     _items.add(human);
     notifyListeners();
-    _db.saveHuman(human);
+    // _db.saveHuman(human);
     return true;
   }
   UnmodifiableListView<Human> get items => UnmodifiableListView(_items);
 
-  // getHumanById(int id) => _items.firstWhere((human) => human.id == id);
+  // UnmodifiableListView<Human> get items {
+  //   FutureBuilder<List<Human>>(
+  //       future: _db.getAllHumans(),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.hasData) {
+  //           return ItemHuman();
+  //         }
+  //         return CircularProgressIndicator();
+  //       }
+  //   );
+  // }
+  getHumanById(int id) => _items.firstWhere((human) => human.id == id);
 }
