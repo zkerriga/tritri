@@ -39,14 +39,10 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<List<Human>> getHuman() async {
+  Future<List<Human>> getAllHumans() async {
     const String sql = "SELECT * FROM $_tableName";
-    // List<Human> humansList = List();
     var dbClient = await db;
 
-    // (await dbClient.rawQuery(sql)).forEach((humanMap) {
-    //   humansList.add(Human.map(humanMap));
-    // });
     return (await dbClient.rawQuery(sql))
         .map((humanMap) => Human.map(humanMap));
   }
