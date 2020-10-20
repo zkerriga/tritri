@@ -27,14 +27,6 @@ class DatabaseHelper {
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
   }
-/*
-  int                 id;
-  final String        firstName;
-  final String        lastName;
-  final String        link;
-  final List<String>  skillsList;
-  final List<String>  hobbiesList;
-  */
   void _onCreate(Database db, int version) async {
     await db.execute(
         "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY, firstName TEXT, lastName TEXT, link TEXT, skillsList TEXT, hobbiesList TEXT)"
@@ -55,7 +47,8 @@ class DatabaseHelper {
     // (await dbClient.rawQuery(sql)).forEach((humanMap) {
     //   humansList.add(Human.map(humanMap));
     // });
-    return (await dbClient.rawQuery(sql)).map((humanMap) => Human.map(humanMap));
+    return (await dbClient.rawQuery(sql))
+        .map((humanMap) => Human.map(humanMap));
   }
 
   Future<int> deleteHuman(Human human) async {
@@ -71,7 +64,8 @@ class DatabaseHelper {
     int res = await dbClient.update(
         _tableName,
         human.toMap(),
-        where: "id = ?", whereArgs: <int>[human.id]
+        where: "id = ?",
+        whereArgs: <int>[human.id]
     );
     return res > 0 ? true : false;
   }
