@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<HumansDataProvider>(
       create: (context) => HumansDataProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'TriTri',
         theme: ThemeData(
           primarySwatch: MyColors.palette,
