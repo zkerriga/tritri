@@ -7,7 +7,7 @@ class Human with ChangeNotifier {
   final String  lastName;
   final String  link;
   final List<String>  skillsList;
-  final List<String>  hobbieList;
+  final List<String>  hobbiesList;
 
   Human({
       @required this.id,
@@ -15,25 +15,29 @@ class Human with ChangeNotifier {
       @required this.lastName,
       @required this.link,
       @required this.skillsList,
-      @required this.hobbieList
+      @required this.hobbiesList
   });
 
   getSkillsString() {
     return skillsList.join(', ');
   }
   getHobbiesString() {
-    return hobbieList.join(', ');
+    return hobbiesList.join(', ');
   }
 }
 
 class HumansDataProvider with ChangeNotifier {
   List<Human> _items = [
-    Human(id: 0, firstName: 'Bob', lastName: 'Dillan', link: 't.me/bob', skillsList: ['design', 'art'], hobbieList: ['cook']),
-    Human(id: 1, firstName: 'Dan', lastName: 'El', link: 't.me/zkerriga', skillsList: ['design', 'programming'], hobbieList: ['music', 'urban']),
-    Human(id: 2, firstName: 'Fred', lastName: 'Gag', link: 'vk.com/super_fred', skillsList: ['cook', 'music'], hobbieList: ['writing', 'urban', 'books'])
+    Human(id: 0, firstName: 'Bob', lastName: 'Dillan', link: 't.me/bob', skillsList: ['design', 'art'], hobbiesList: ['cook']),
+    Human(id: 1, firstName: 'Dan', lastName: 'El', link: 't.me/zkerriga', skillsList: ['design', 'programming'], hobbiesList: ['music', 'urban']),
   ];
 
+  bool  addHuman(Human human) {
+    _items.add(human);
+    notifyListeners();
+    return true;
+  }
   UnmodifiableListView<Human> get items => UnmodifiableListView(_items);
 
-  getHumanById(int id) => _items.firstWhere((human) => human.id == id);
+  // getHumanById(int id) => _items.firstWhere((human) => human.id == id);
 }

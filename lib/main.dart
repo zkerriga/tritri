@@ -12,16 +12,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-          title: 'TriTri',
-          theme: ThemeData(
-            primarySwatch: MyColors.palette,
-            backgroundColor: MyColors.white,
-            textTheme: GoogleFonts.robotoTextTheme(
-              Theme.of(context).textTheme,
-            )
-          ),
-          home: HomePage(),
+    return ChangeNotifierProvider<HumansDataProvider>(
+      create: (context) => HumansDataProvider(),
+      child: MaterialApp(
+        title: 'TriTri',
+        theme: ThemeData(
+          primarySwatch: MyColors.palette,
+          backgroundColor: MyColors.white,
+          textTheme: GoogleFonts.robotoTextTheme(
+            Theme.of(context).textTheme,
+          )
+        ),
+        home: HomePage(),
+    ),
     );
   }
 }
