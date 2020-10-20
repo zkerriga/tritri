@@ -13,6 +13,29 @@ class HomePage extends StatelessWidget {
     final humanData = Provider.of<HumansDataProvider>(context);
 
     return Scaffold(
+      backgroundColor: MyColors.white,
+      appBar: AppBar(
+        title: Text('TriTri'),
+        backgroundColor: MyColors.lightBlue,
+      ),
+      body: Column(
+        children: <Widget>[
+
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          //TODO: добавить действие на нажатие кнопки
+        },
+        elevation: 5,
+        tooltip: "Добавить карточку",
+      ),
+    );
+
+
+    /*
+    return Scaffold(
       appBar: AppBar(
         title: Text('TriTri'),
         backgroundColor: MyColors.lightBlue,
@@ -50,5 +73,6 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+     */
   }
 }

@@ -12,13 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<HumansDataProvider>(
-              create: (context) => HumansDataProvider(),
-          )
-        ],
-        child: MaterialApp(
+    return MaterialApp(
           title: 'TriTri',
           theme: ThemeData(
             primarySwatch: MyColors.palette,
@@ -28,8 +22,6 @@ class MyApp extends StatelessWidget {
             )
           ),
           home: HomePage(),
-        ),
     );
-
   }
 }
