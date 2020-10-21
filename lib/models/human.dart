@@ -33,8 +33,8 @@ class Human with ChangeNotifier {
 
   String get firstName => _firstName;
   String get lastName => _lastName;
-  // List<String> get skills => _skillsList;
-  // List<String> get hobbies => _hobbiesList;
+  UnmodifiableListView<String> get skills => UnmodifiableListView(_skillsList);
+  UnmodifiableListView<String> get hobbies => UnmodifiableListView(_hobbiesList);
 
   setHumanId(int id) {
     this.id = id;

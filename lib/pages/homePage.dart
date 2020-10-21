@@ -70,7 +70,6 @@ class HomePage extends StatelessWidget {
               Container(
                 child: ListTile(
                   title: Text('Все'),
-                  // trailing: Icon(Icons.panorama_horizontal),
                 ),
               ),
               Container(

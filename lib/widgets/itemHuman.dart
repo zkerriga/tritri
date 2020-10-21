@@ -1,8 +1,43 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tritri/models/human.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:tritri/myColors.dart';
+
+class SkillsContainer extends StatelessWidget {
+  final UnmodifiableListView<String> skillsList;
+  SkillsContainer({Key key, this.skillsList}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 4,
+      runSpacing: 2,
+      children: <Widget>[
+        Container(
+          width: 100,
+          height: 24,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: skillsList.length,
+            itemBuilder: (context, int skillIndex) {
+              return Container(
+                child: Text(skillsList[skillIndex]),
+                decoration: BoxDecoration(
+                  color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 class ItemHuman extends StatelessWidget {
   const ItemHuman({Key key}) : super(key: key);
@@ -43,6 +78,7 @@ class ItemHuman extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
+                SkillsContainer(skillsList: human.skills,),
                 Container(
                   child: Text(
                     'Skills: ${human.getSkillsString()}',
