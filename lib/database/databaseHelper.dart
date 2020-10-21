@@ -1,11 +1,91 @@
 import 'dart:async';
-import 'dart:io' as io;
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:tritri/models/human.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+class DBProvider with ChangeNotifier {
+  DBProvider._();
+
+  static final DBProvider db = DBProvider._();
+  static const String _tableName = "Humans";
+
+  Database _database;
+
+  Future<Database> get database async {
+    if (_database == null)
+      _database = await initDB();
+    return _database;
+  }
+  initDB() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, "$_tableName.db");
+    return await openDatabase(path, version: 1, onOpen: (db) {},
+        onCreate: (Database db, int version) async {
+          await db.execute(
+              "CREATE TABLE $_tableName ("
+                  "id INTEGER PRIMARY KEY,"
+                  "firstName TEXT,"
+                  "lastName TEXT,"
+                  "link TEXT,"
+                  "skillsList TEXT,"
+                  "hobbiesList TEXT"
+                  ")"
+          );
+        });
+  }
+  Future<int> newHuman(Human newHuman) async {
+    const String sql = "SELECT MAX(id)+1 as id FROM $_tableName";
+    final dbClient = await database;
+
+    newHuman.setHumanId((await dbClient.rawQuery(sql)).first["id"]);
+    return (
+        await dbClient.insert(_tableName, newHuman.toMap())
+    );
+  }
+  Future<int> updateHuman(Human human) async {
+    final dbClient = await database;
+
+    return (
+        await dbClient.update(
+          _tableName,
+          human.toMap(),
+          where: "id = ?",
+          whereArgs: <int>[human.id]
+        )
+    );
+  }
+  getClient(int id) async {
+    final dbClient = await database;
+    final res = await dbClient.query(_tableName, where: "id = ?", whereArgs: [id]);
+    return res.isNotEmpty
+        ? Human.map(res.first)
+        : null;
+  }
+  Future<List<Human>> getAllClients() async {
+    final dbClient = await database;
+    const String sql = "SELECT * FROM $_tableName";
+    final res = await dbClient.rawQuery(sql);
+
+    return (res.isNotEmpty
+        ? res.map((humanMap) => Human.map(humanMap)).toList()
+        : []
+    );
+  }
+  deleteHuman(int id) async {
+    final dbClient = await database;
+    return dbClient.delete(_tableName, where: "id = ?", whereArgs: [id]);
+  }
+  deleteAll() async {
+    final dbClient = await database;
+    dbClient.rawDelete("Delete * from $_tableName");
+  }
+}
+
+/*
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper.internal();
   factory DatabaseHelper() => _instance;
@@ -22,7 +102,7 @@ class DatabaseHelper {
   DatabaseHelper.internal();
 
   initDb() async {
-    io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "$_tableName.db");
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
@@ -39,12 +119,21 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<List<Human>> getAllHumans() async {
+  /*Future<List<Human>> getAllHumans() async {
     const String sql = "SELECT * FROM $_tableName";
     var dbClient = await db;
 
     return (await dbClient.rawQuery(sql))
         .map((humanMap) => Human.map(humanMap));
+  }*/
+
+  getAllHumans() async {
+    const String sql = "SELECT * FROM $_tableName";
+    final dbClient = await db;
+
+    final res = await dbClient.rawQuery(sql);
+    List<Human> list = res.isNotEmpty ? res.map((humanMap) => Human.map(humanMap)).toList() : [];
+    return list;
   }
 
   Future<int> deleteHuman(Human human) async {
@@ -66,7 +155,7 @@ class DatabaseHelper {
     return res > 0 ? true : false;
   }
 }
-
+*/
 /*
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart' as sql;

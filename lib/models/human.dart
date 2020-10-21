@@ -2,10 +2,10 @@ import 'dart:collection';
 // import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:tritri/database/databaseHelper.dart';
+import 'package:tritri/database/databaseHelper.dart';
 // import 'package:tritri/widgets/itemHuman.dart';
 
-class Human with ChangeNotifier {
+class Human {
   int           id;
   String        _firstName;
   String        _lastName;
@@ -47,6 +47,7 @@ class Human with ChangeNotifier {
   }
   Map<String, dynamic> toMap() {
     return Map<String, dynamic>()
+    ..["id"] = id
     ..["firstname"] = _firstName
     ..["lastname"] = _lastName
     ..["link"] = _link
@@ -55,7 +56,9 @@ class Human with ChangeNotifier {
   }
 }
 
+/*
 class HumansDataProvider with ChangeNotifier {
+  final _db = DatabaseHelper();
   // var _db = DatabaseHelper();
   // List<Human> _items;
 
@@ -99,3 +102,4 @@ class HumansDataProvider with ChangeNotifier {
   // }
   getHumanById(int id) => _items.firstWhere((human) => human.id == id);
 }
+*/
