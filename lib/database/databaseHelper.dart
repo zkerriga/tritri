@@ -41,6 +41,9 @@ class DBHelper with ChangeNotifier {
         conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  Future<void> delete(int id) async {
+    await db.delete(_tableName, where: "id = ?", whereArgs: [id]);
+  }
   Future<List<Map<String, dynamic>>> getData() async {
     return await db.query(_tableName);
   }
@@ -63,6 +66,13 @@ class DataProvider with ChangeNotifier {
       _items.add(newHuman);
       notifyListeners();
       dbHelper.insert(newHuman.toMap());
+    }
+  }
+  void deleteHuman(int id) {
+    if (dbHelper.db != null) {
+      _items.removeWhere((item) => item.id == id);
+      notifyListeners();
+      dbHelper.delete(id);
     }
   }
   Future<void> fetchAndSetData() async {

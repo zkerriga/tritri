@@ -13,46 +13,6 @@ class HomePage extends StatelessWidget {
 
     final humanData = Provider.of<DataProvider>(context);
 
-    /*
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(title: Text("Flutter SQLite")),
-        body: FutureBuilder<List<Client>>(
-          future: DBProvider.db.getAllClients(),
-          builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Client item = snapshot.data[index];
-                  return ListTile(
-                    title: Text(item.lastName),
-                    leading: Text(item.id.toString()),
-                    trailing: Checkbox(
-                      onChanged: (bool value) {
-                        DBProvider.db.blockClient(item);
-                        setState(() {});
-                      },
-                      value: item.blocked,
-                    ),
-                  );
-                },
-              );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () async {
-            Client rnd = testClients[math.Random().nextInt(testClients.length)];
-            await DBProvider.db.newClient(rnd);
-            setState(() {});
-          },
-        ),
-      );
-    }*/
     return Scaffold(
       appBar: AppBar(
         title: Text('TriTri'),
