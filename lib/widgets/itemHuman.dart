@@ -12,28 +12,24 @@ class SkillsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 4,
-      runSpacing: 2,
-      children: <Widget>[
-        Container(
-          width: 100,
-          height: 24,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: skillsList.length,
-            itemBuilder: (context, int skillIndex) {
-              return Container(
-                child: Text(skillsList[skillIndex]),
-                decoration: BoxDecoration(
-                  color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+    return Container(
+      width: 100,
+      height: 26,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: skillsList.length,
+        itemBuilder: (context, int skillIndex) {
+          return Container(
+            padding: const EdgeInsets.all(2),
+            margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
+            child: Text(skillsList[skillIndex]),
+            decoration: BoxDecoration(
+              color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
+              borderRadius: BorderRadius.circular(3.5),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -79,18 +75,7 @@ class ItemHuman extends StatelessWidget {
                   ),
                 ),
                 SkillsContainer(skillsList: human.skills,),
-                Container(
-                  child: Text(
-                    'Skills: ${human.getSkillsString()}',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    'Hobbies: ${human.getHobbiesString()}',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-                  ),
-                ),
+                SkillsContainer(skillsList: human.hobbies,),
                 Dash(
                   direction: Axis.horizontal,
                   dashLength: 3,
