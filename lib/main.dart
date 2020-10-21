@@ -6,11 +6,6 @@ import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/pages/homePage.dart';
 
-final List<Human> testHumans = [
-  Human('Bob', 'Dillan', 't.me/bob', ['design', 'art'], ['cook']),
-  Human('Dan', 'El', 't.me/zkerriga', ['design', 'programming'], ['music', 'urban']),
-];
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,7 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => DBHelper()),
         ChangeNotifierProxyProvider<DBHelper, DataProvider>(
-          create: (context) => DataProvider(testHumans, dbHelper: null),
+          create: (context) => DataProvider([], dbHelper: null),
           update: (context, db, previous) =>
               DataProvider(previous.items, dbHelper: db),
         ),

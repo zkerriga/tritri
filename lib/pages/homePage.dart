@@ -93,6 +93,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
+          humanData.addHuman(Human(DateTime.now().millisecond.toString(), 'Test', 't.me/test', ['skill1', 'skill2'], ['hobbie1', 'hobbie2', 'hobbie3']));
           //TODO: добавить действие на нажатие кнопки
         },
         elevation: 5,
