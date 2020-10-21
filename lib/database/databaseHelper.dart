@@ -6,6 +6,46 @@ import 'package:tritri/models/human.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart' as sql;
+
+class DBHelper with ChangeNotifier {
+  static const String tableName = "Humans";
+  Database db;
+
+  DBHelper() {
+    initDB();
+  }
+  initDB() async {
+    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final String path = join(documentsDirectory.path, "$tableName.db");
+    db = await openDatabase(
+        path,
+        version: 1,
+        onCreate: (Database db, int version) async {
+          return await db.execute(
+              "CREATE TABLE $tableName ("
+                  "id INTEGER PRIMARY KEY,"
+                  "firstName TEXT,"
+                  "lastName TEXT,"
+                  "link TEXT,"
+                  "skillsList TEXT,"
+                  "hobbiesList TEXT"
+                  ")"
+          );
+        },
+    );
+    print("[+] INIT DB");
+    notifyListeners();
+  }
+  Future<void> insert(String table, Map<String, Object> data) async {
+    await db.insert(table, data,
+        conflictAlgorithm: sql.ConflictAlgorithm.replace,
+    );
+  }
+  Future<List<Map<String, dynamic>>> getData(String table) async {
+    return await db.query(table);
+  }
+}
 
 class DBProvider with ChangeNotifier {
   DBProvider._();
