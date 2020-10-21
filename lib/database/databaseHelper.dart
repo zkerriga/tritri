@@ -54,6 +54,9 @@ class DataProvider with ChangeNotifier {
     if (dbHelper != null)
       fetchAndSetData();
   }
+
+  List<Human> get items => [..._items];
+
   void addHuman(Human newHuman) {
     if (dbHelper.db != null) { // do not execute if db is not instantiate
       newHuman.setHumanId(DateTime.now().millisecondsSinceEpoch);

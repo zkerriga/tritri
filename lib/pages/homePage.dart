@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/widgets/itemHuman.dart';
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final humanData = Provider.of<HumansDataProvider>(context);
+    final humanData = Provider.of<DataProvider>(context);
 
     /*
     Widget build(BuildContext context) {
@@ -92,7 +93,6 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          humanData.addFackenHuman();
           //TODO: добавить действие на нажатие кнопки
         },
         elevation: 5,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tritri/database/databaseHelper.dart';
 // import 'package:tritri/widgets/itemHuman.dart';
 
-class Human {
+class Human with ChangeNotifier {
   int           id;
   String        _firstName;
   String        _lastName;
