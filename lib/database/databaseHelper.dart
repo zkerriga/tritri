@@ -4,12 +4,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:tritri/models/human.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqflite.dart' as sql;
 
 class DBHelper with ChangeNotifier {
-  static const String tableName = "Humans";
+  static const String _tableName = "Humans";
   Database db;
 
   DBHelper() {
@@ -17,13 +15,13 @@ class DBHelper with ChangeNotifier {
   }
   initDB() async {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = join(documentsDirectory.path, "$tableName.db");
+    final String path = join(documentsDirectory.path, "$_tableName.db");
     db = await openDatabase(
         path,
         version: 1,
         onCreate: (Database db, int version) async {
           return await db.execute(
-              "CREATE TABLE $tableName ("
+              "CREATE TABLE $_tableName ("
                   "id INTEGER PRIMARY KEY,"
                   "firstName TEXT,"
                   "lastName TEXT,"
@@ -37,16 +35,46 @@ class DBHelper with ChangeNotifier {
     print("[+] INIT DB");
     notifyListeners();
   }
-  Future<void> insert(String table, Map<String, Object> data) async {
-    await db.insert(table, data,
-        conflictAlgorithm: sql.ConflictAlgorithm.replace,
+  Future<void> insert(Map<String, dynamic> data) async {
+    await db.insert(_tableName, data,
+        conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-  Future<List<Map<String, dynamic>>> getData(String table) async {
-    return await db.query(table);
+  Future<List<Map<String, dynamic>>> getData() async {
+    return await db.query(_tableName);
   }
 }
 
+class DataProvider with ChangeNotifier {
+  final DBHelper dbHelper;
+  List<Human> _items = [];
+
+  DataProvider(this._items, {this.dbHelper}) {
+    if (dbHelper != null)
+      fetchAndSetData();
+  }
+  void addHuman(Human newHuman) {
+    if (dbHelper.db != null) { // do not execute if db is not instantiate
+      newHuman.setHumanId(DateTime.now().millisecondsSinceEpoch);
+      _items.add(newHuman);
+      notifyListeners();
+      dbHelper.insert(newHuman.toMap());
+    }
+  }
+  Future<void> fetchAndSetData() async {
+    if (dbHelper.db != null) { // do not execute if db is not instantiate
+      final dataList = await dbHelper.getData();
+      _items = dataList.isNotEmpty
+          ? dataList
+            .map((humanMap) => Human.map(humanMap))
+            .toList()
+          : [];
+      notifyListeners();
+    }
+  }
+}
+
+/*
 class DBProvider with ChangeNotifier {
   DBProvider._();
 
@@ -124,7 +152,7 @@ class DBProvider with ChangeNotifier {
     dbClient.rawDelete("Delete * from $_tableName");
   }
 }
-
+ */
 /*
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper.internal();
