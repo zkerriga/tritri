@@ -4,6 +4,7 @@ import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/widgets/itemHuman.dart';
+import 'package:tritri/pages/createHumanPage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -52,7 +53,9 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          humanData.addHuman(Human(DateTime.now().millisecond.toString(), 'Test', 't.me/test', ['skill1', 'skill2'], ['hobbie1', 'hobbie2', 'hobbie3']));
+          // humanData.deleteAll(44213); //TODO: special for delete all!
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateHumanPage()));
+          // humanData.addHuman(Human(DateTime.now().millisecond.toString(), 'Test', 't.me/test', ['skill1', 'skill2'], ['hobbie1', 'hobbie2', 'hobbie3']));
           //TODO: добавить действие на нажатие кнопки
         },
         elevation: 5,

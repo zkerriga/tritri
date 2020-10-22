@@ -64,7 +64,7 @@ class ItemHuman extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsetsDirectional.only(start: 20.0),
+            padding: const EdgeInsetsDirectional.only(start: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
