@@ -1,9 +1,8 @@
+import 'dart:math';
 import 'dart:ui' show Color;
 import 'package:flutter/material.dart';
 
-class MyColors extends ColorSwatch<int> {
-  MyColors(int primary, Map<int, Color> swatch) : super(primary, swatch);
-
+class MyColors {
   static const Color transparent  = Color(0x00000000);
   static const Color purple       = Color(0xFFCDB4DB);
   static const Color lightPink    = Color(0xFFFFC8DD);
@@ -27,6 +26,15 @@ class MyColors extends ColorSwatch<int> {
       900: Color(0xFFCDB4DB),
     },
   );
+
   static const int _palettePrimaryValue = 0xFFFFFCFC;
+
+  Color randomColor() {
+    int i = Random().nextInt(4);
+    if (i == 0) return purple;
+    else if (i == 1) return lightPink;
+    else if (i == 2) return lightBlue;
+    else return white;
+  }
 }
 
