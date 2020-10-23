@@ -65,16 +65,25 @@ class PhotoBlock extends StatelessWidget {
 
 class CreateHumanState extends State {
   final _formKey = GlobalKey<FormState>();
-  String        _firstName = "_name";
-  String        _lastName = "_name2";
-  String        _link = "_link";
-  List<String>  _skillsList = ["skill1"];
-  List<String>  _hobbiesList = ["hobbie1"];
+  String        _firstName = "_";
+  String        _lastName = "_";
+  String        _link = "_";
+  List<String>  _skillsList = [];
+  List<String>  _hobbiesList = [];
 
   Widget build(BuildContext context) {
     final humanData = Provider.of<DataProvider>(context);
 
-    return Container(
+    _validateName(String value) {
+      if (value.isEmpty)
+        return ("Стоит добавить имя");
+      if (value.contains('@'))
+        return ("Имя должно содержать только буквы");
+      return null;
+    }
+
+    return Form(
+      key: _formKey,
       child: Column(
         children: <Widget>[
           Row(
@@ -86,34 +95,40 @@ class CreateHumanState extends State {
                 child: TextFormField(
                   decoration: const InputDecoration(
                     icon: Icon(Icons.person),
-                    hintText: 'Как вас зовут люди?',
+                    hintText: 'Как зовут человека?',
                     labelText: 'Имя',
                   ),
                   onSaved: (String value) {
-                    // This optional block of code can be used to run
-                    // code when the user saves the form.
-                    _firstName = value; //TODO: это не сохраняется
+                    _firstName = value;
                   },
-                  validator: (String value) {
-                    return value.contains('@') ? 'Do not use the @ char.' : null;
-                  },
-                )
+                  validator: _validateName,
+                ),
               ),
             ],
           ),
           IconButton(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.check),
             iconSize: 50,
             color: MyColors.purple,
             onPressed: () {
-              humanData.addHuman(Human(
-                _firstName,
-                _lastName,
-                _link,
-                _skillsList,
-                _hobbiesList,
-              ));
-              Navigator.pop(context);
+              // Validate returns true if the form is valid, otherwise false.
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
+                Scaffold
+                    .of(context)
+                    .showSnackBar(SnackBar(
+                      backgroundColor: MyColors.lightPink,
+                      content: Text('Идёт сохранение..')
+                    ));
+                humanData.addHuman(Human(
+                  _firstName,
+                  _lastName,
+                  _link,
+                  _skillsList,
+                  _hobbiesList,
+                ));
+                Navigator.pop(context);
+              }
             },
           ),
         ],
@@ -121,70 +136,3 @@ class CreateHumanState extends State {
     );
   }
 }
-
-/*class CreateHumanState extends State {
-  final _formKey = GlobalKey<FormState>();
-  String        _firstName = "_name";
-  String        _lastName = "_name2";
-  String        _link = "_link";
-  List<String>  _skillsList = ["skill1"];
-  List<String>  _hobbiesList = ["hobbie1"];
-
-  Widget build(BuildContext context) {
-    final humanData = Provider.of<DataProvider>(context);
-
-    return Container(
-      padding: const EdgeInsets.all(10.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text("Имя: "),
-                Expanded(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return ("Нужно заполнить!");
-                      _firstName = value;
-                      return null;
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Text("Фамилия: "),
-                Expanded(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return ("Нужно заполнить!");
-                      _lastName = value;
-                      return null;
-                    }
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Text("Ссылка: "),
-                // TextFormField(validator: _validate,)
-              ],
-            ),
-            RaisedButton(
-              onPressed: () {
-                  humanData.addHuman(Human(_firstName, _lastName, _link, _skillsList, _hobbiesList));
-                  Navigator.pop(context);
-                },
-              child: Text('Готово')
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
