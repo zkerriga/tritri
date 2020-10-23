@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
+import 'package:tritri/pages/humanItemView.dart';
 import 'package:tritri/widgets/itemHuman.dart';
 import 'package:tritri/pages/createHumanPage.dart';
 
@@ -35,7 +36,19 @@ class HomePage extends StatelessWidget {
                           color: MyColors().randomColor(), //TODO: delete
                           height: _height * 0.15,
                           margin: EdgeInsets.only(bottom: _height * 0.01),
-                          child: ItemHuman(width: _width, height: _height * 0.15,),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => HumanItemView(
+                                    human: humanData.items[index],
+                                    width: _width * 0.8,
+                                    height: _height * 0.8,
+                                  ),
+                              );
+                            },
+                            child: ItemHuman(width: _width, height: _height * 0.15,),
+                          ),
                         ),
                       ),
                 ),
@@ -45,7 +58,9 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           // humanData.deleteAll(44213); //TODO: special for delete all!
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateHumanPage()));
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => CreateHumanPage())
+          );
         },
         elevation: 5,
         tooltip: "Добавить карточку",
