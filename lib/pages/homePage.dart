@@ -13,6 +13,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final humanData = Provider.of<DataProvider>(context);
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,24 +28,28 @@ class HomePage extends StatelessWidget {
             color: MyColors.white,
           ),
           child: ListView(
-            padding: const EdgeInsets.all(10.0),
             children: <Widget>[
               Container(
                 child: ListTile(
-                  title: Text('Все'),
+                  title: Text("Все"),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(5.0),
-                height: 900, //TODO: Размер поля для скрола нужно как-то конкретнее определить
+                // padding: EdgeInsets.all(_width * 0.005),
+                height: _height,
                 child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: humanData.items.length,
-                    itemBuilder: (context, int index) =>
-                        ChangeNotifierProvider.value(
-                            value: humanData.items[index],
-                            child: ItemHuman(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: humanData.items.length,
+                  itemBuilder: (context, int index) =>
+                      ChangeNotifierProvider.value(
+                        value: humanData.items[index],
+                        child: Container(
+                          color: MyColors().randomColor(), //TODO: delete
+                          height: _height * 0.15,
+                          margin: EdgeInsets.only(bottom: _height * 0.01),
+                          child: ItemHuman(width: _width, height: _height * 0.15,),
                         ),
+                      ),
                 ),
               ),
             ],

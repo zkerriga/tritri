@@ -36,7 +36,9 @@ class SkillsContainer extends StatelessWidget {
 }
 
 class ItemHuman extends StatelessWidget {
-  const ItemHuman({Key key}) : super(key: key);
+  final double width;
+  final double height;
+  const ItemHuman({Key key, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,60 +48,60 @@ class ItemHuman extends StatelessWidget {
     const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
 
     return Container(
-      height: 100,
-      margin: const EdgeInsets.all(5.0),
+      padding: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                image: DecorationImage(
-                  image: NetworkImage(_catImageURL),
-                  fit: BoxFit.cover,
-                )
-            ),
+          // Text("${_width.round()}-${_height.round()}"),
+          Expanded(
+            flex: 2,
+            child: Center(
+              child:CircleAvatar(
+                maxRadius: 500,
+                backgroundImage: NetworkImage(_catImageURL),
+              ),
+            )
           ),
-          Container(
-            padding: const EdgeInsetsDirectional.only(start: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    '${human.firstName} ${human.lastName}',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+          Expanded(
+            flex: 5,
+            child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        '${human.firstName} ${human.lastName}',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SkillsContainer(skillsList: human.skills,),
+                    SkillsContainer(skillsList: human.hobbies,),
+                    Container(
+                      width: 10,
+                      height: 10,
+                      color: MyColors.pink,
+                      child: IconButton(
+                        icon: Icon(Icons.delete),
+                        iconSize: 10,
+                        color: MyColors.purple,
+                        onPressed: () {
+                          humansData.deleteHuman(human.id);
+                        },
+                      ),
+                    ),
+                    Dash(
+                      direction: Axis.horizontal,
+                      dashLength: 3,
+                      dashColor: MyColors.lightPink,
+                    ),
+                  ],
                 ),
-                SkillsContainer(skillsList: human.skills,),
-                SkillsContainer(skillsList: human.hobbies,),
-                Container(
-                  width: 10,
-                  height: 10,
-                  color: MyColors.pink,
-                  child: IconButton(
-                    icon: Icon(Icons.delete),
-                    iconSize: 10,
-                    color: MyColors.purple,
-                    onPressed: () {
-                      humansData.deleteHuman(human.id);
-                    },
-                  ),
-                ),
-                Dash(
-                  direction: Axis.horizontal,
-                  dashLength: 3,
-                  dashColor: MyColors.lightPink,
-                ),
-              ],
-            ),
+              ),
           ),
         ],
-      )
+      ),
     );
   }
 }
