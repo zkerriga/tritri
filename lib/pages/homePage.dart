@@ -55,8 +55,6 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           // humanData.deleteAll(44213); //TODO: special for delete all!
           Navigator.push(context, MaterialPageRoute(builder: (context) => CreateHumanPage()));
-          // humanData.addHuman(Human(DateTime.now().millisecond.toString(), 'Test', 't.me/test', ['skill1', 'skill2'], ['hobbie1', 'hobbie2', 'hobbie3']));
-          //TODO: добавить действие на нажатие кнопки
         },
         elevation: 5,
         tooltip: "Добавить карточку",
