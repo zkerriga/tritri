@@ -15,7 +15,10 @@ class CreateHumanPage extends StatelessWidget {
         backgroundColor: MyColors.lightBlue,
       ),
       backgroundColor: MyColors.white,
-      body: CreateHumanForm(),
+      body: Container(
+        padding: const EdgeInsets.all(15.0),
+        child: CreateHumanForm(),
+      )
     );
   }
 }
@@ -33,9 +36,8 @@ class PhotoBlock extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-
           Container(
-            margin: const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
+            // margin: const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
             height: 120,
             width: 120,
             child: CircleAvatar(
@@ -78,10 +80,31 @@ class CreateHumanState extends State {
       if (value.isEmpty)
         return ("Стоит добавить имя");
       if (value.contains('@'))
-        return ("Имя должно содержать только буквы");
+        return ("Только буквы");
       return null;
     }
-
+    _validateLastName(String value) {
+      if (value.contains('@'))
+        return ("Только буквы");
+      return null;
+    }
+    _validateLink(String value) {
+      return null;
+    }
+    _validateLists(String value) {
+      if (value.isEmpty)
+        return ("Без этого никак!");
+      return null;
+    }
+    List<String> _toSkillsList(String value) {
+      const String _splitter = " ";
+      return value
+          .replaceAll(RegExp(r"^[ ,.]+"), "")
+          .replaceAll(RegExp(r"[ ,.]+$"), "")
+          .toLowerCase()
+          .replaceAll(RegExp(r"[ ,.]+"), _splitter)
+          .split(_splitter);
+    }
     return Form(
       key: _formKey,
       child: Column(
@@ -90,21 +113,71 @@ class CreateHumanState extends State {
             children: <Widget>[
               PhotoBlock(),
               Container(
+                padding: const EdgeInsets.only(left: 10),
                 height: 120,
                 width: 250,
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Как зовут человека?',
-                    labelText: 'Имя',
-                  ),
-                  onSaved: (String value) {
-                    _firstName = value;
-                  },
-                  validator: _validateName,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        hintText: 'Как зовут человека?',
+                        labelText: 'Имя',
+                      ),
+                      onSaved: (String value) {
+                        _firstName = value;
+                      },
+                      validator: _validateName,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        hintText: 'Фамилия человека?',
+                        labelText: 'Фамилия',
+                      ),
+                      onSaved: (String value) {
+                        _lastName = value;
+                      },
+                      validator: _validateLastName,
+                    ),
+                  ],
                 ),
               ),
             ],
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.link),
+              hintText: 'Ссылка для связи?',
+              labelText: 'Ссылка',
+            ),
+            onSaved: (String value) {
+              _link = value;
+            },
+            validator: _validateLink,
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.star),
+              hintText: 'Навыки человека?',
+              labelText: 'Навыки',
+            ),
+            onSaved: (String value) => _skillsList = _toSkillsList(value),
+            validator: _validateLists,
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.star_border_purple500_sharp),
+              hintText: 'Хобби человека?',
+              labelText: 'Хобби',
+            ),
+            onSaved: (String value) => _hobbiesList = _toSkillsList(value),
+            validator: _validateLists,
+          ),
+          SizedBox(
+            height: 50,
           ),
           IconButton(
             icon: Icon(Icons.check),
