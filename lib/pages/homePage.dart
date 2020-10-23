@@ -24,20 +24,8 @@ class HomePage extends StatelessWidget {
       backgroundColor: MyColors.white,
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            color: MyColors.white,
-          ),
-          child: ListView(
-            children: <Widget>[
-              Container(
-                child: ListTile(
-                  title: Text("Все"),
-                ),
-              ),
-              Container(
-                // padding: EdgeInsets.all(_width * 0.005),
-                height: _height,
-                child: ListView.builder(
+          color: MyColors.white,
+          child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: humanData.items.length,
                   itemBuilder: (context, int index) =>
@@ -52,10 +40,7 @@ class HomePage extends StatelessWidget {
                       ),
                 ),
               ),
-            ],
           ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {

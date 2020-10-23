@@ -9,28 +9,40 @@ import 'package:tritri/myColors.dart';
 
 class SkillsContainer extends StatelessWidget {
   final UnmodifiableListView<String> skillsList;
-  SkillsContainer({Key key, this.skillsList}) : super(key: key);
+  final double width;
+  const SkillsContainer({Key key, this.skillsList, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 270,
-      height: 26,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: skillsList.length,
-        itemBuilder: (context, int skillIndex) {
-          return Container(
-            padding: const EdgeInsets.all(2),
-            margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
-            child: Text(skillsList[skillIndex]),
-            decoration: BoxDecoration(
-              color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
-              borderRadius: BorderRadius.circular(3.5),
-            ),
-          );
-        },
-      ),
+    /*ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: skillsList.length,
+      itemBuilder: (context, int skillIndex) {
+        return Container(
+          padding: const EdgeInsets.all(2),
+          margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
+          child: Text(skillsList[skillIndex]),
+          decoration: BoxDecoration(
+            color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
+            borderRadius: BorderRadius.circular(3.5),
+          ),
+        );
+      },
+    );*/
+    List<Widget> _widgetsList = <Widget>[];
+    skillsList.forEach((skill) {
+      _widgetsList.add(Container(
+        padding: const EdgeInsets.all(2),
+        margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
+        child: Text(skill),
+        decoration: BoxDecoration(
+          color: MyColors().randomColor(),
+          borderRadius: BorderRadius.circular(3.5),
+        ),
+      ));
+    });
+    return Row(
+      children: _widgetsList,
     );
   }
 }
@@ -70,14 +82,29 @@ class ItemHuman extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
+                    /*Container(
                       child: Text(
                         '${human.firstName} ${human.lastName}',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
+                    ),*/
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        child: Text(
+                          '${human.firstName} ${human.lastName}',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                    SkillsContainer(skillsList: human.skills,),
-                    SkillsContainer(skillsList: human.hobbies,),
+                    Expanded(
+                      flex: 2,
+                      child: SkillsContainer(skillsList: human.skills, width: width * 5 / 7,),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SkillsContainer(skillsList: human.hobbies, width: width * 5 / 7,),
+                    ),
                     Container(
                       width: 10,
                       height: 10,
@@ -91,11 +118,11 @@ class ItemHuman extends StatelessWidget {
                         },
                       ),
                     ),
-                    Dash(
+                    /*Dash(
                       direction: Axis.horizontal,
                       dashLength: 3,
                       dashColor: MyColors.lightPink,
-                    ),
+                    ),*/
                   ],
                 ),
               ),
