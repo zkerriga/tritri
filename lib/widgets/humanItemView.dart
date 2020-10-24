@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'dart:collection';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tritri/models/human.dart';
@@ -9,11 +8,33 @@ import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 
 class _SkillBox extends StatelessWidget {
+  final UnmodifiableListView<String> skillsList;
+  const _SkillBox({Key key, this.skillsList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: MyColors.pink,
+    final List<WidgetSpan> _widgetsList = <WidgetSpan>[];
+
+    skillsList.forEach((skill) {
+      _widgetsList.add(
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Container(
+            padding: const EdgeInsets.all(2.5),
+            margin: const EdgeInsets.only(left: 0, top: 3, right: 4, bottom: 3),
+            child: Text(skill),
+            decoration: BoxDecoration(
+              color: MyColors().randomColor(),
+              borderRadius: BorderRadius.circular(3.5),
+            ),
+          ),
+        ),
+      );
+    });
+    return Text.rich(
+      TextSpan(
+        children: _widgetsList,
+      ),
     );
   }
 }
@@ -47,58 +68,106 @@ class HumanItemView extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    flex: 2,
+                    flex: 4,
                     child: CircleAvatar(
-                      maxRadius: 500,
+                      radius: width / 6,
                       backgroundImage: NetworkImage(_catImageURL),
-                    )
+                    ),
                   ),
+                  Spacer(flex: 1,),
                   Expanded(
-                    flex: 3,
+                    flex: 6,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
+                        SizedBox(),
                         Text(
                           human.firstName,
                           style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold,
+                            fontSize: 24, fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           human.lastName,
                           style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold,
+                            fontSize: 24, fontWeight: FontWeight.bold,
                           ),
                         ),
                         RichText(
                           text: TextSpan(
                             text: human.link,
-                            style: TextStyle(color: MyColors.purple),
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 16, color: MyColors.purple
+                            ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 launch("https://${human.link}");
                               },
                           ),
                         ),
+                        SizedBox(),
                       ],
                     )
                   ),
                 ],
               ),
             ),
+            // Expanded(flex: 1, child: Container()),
+            Divider(),
             Expanded(
-              flex: 3,
-              child: _SkillBox(),
+              flex: 2,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Text("Навыки: ",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 3,
+                      child: _SkillBox(skillsList: human.skills,),
+                  ),
+                ],
+              ),
             ),
+            Divider(),
+            Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Text("Хобби: ",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: _SkillBox(skillsList: human.hobbies,),
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
             Expanded(
               flex: 1,
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    flex: 3,
-                    child: FlatButton(
-                        onPressed: () {},
-                        child: Text("Редактировать")
+                    flex: 1,
+                    child: IconButton(
+                      icon: Icon(Icons.edit),
+                      color: MyColors.purple,
+                      onPressed: () {
+                        humansData.deleteHuman(human.id);
+                      },
                     ),
                   ),
                   Expanded(

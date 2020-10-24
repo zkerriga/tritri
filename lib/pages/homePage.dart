@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
                           // color: MyColors().randomColor(), //TODO: delete
                           color: MyColors.white,
                           height: _height * 0.15,
-                          margin: EdgeInsets.only(bottom: _height * 0.01),
+                          margin: EdgeInsets.only(bottom: _height * 0.005, top: _height * 0.005),
                           child: GestureDetector(
                             onTap: () {
                               showDialog(
