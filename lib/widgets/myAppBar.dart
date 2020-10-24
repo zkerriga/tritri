@@ -23,7 +23,7 @@ getMyAppBar(BuildContext context) => AppBar(
       color: MyColors.black,
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(
-          builder: (context) => SearchPage(),
+          builder: (context) => MySearchPage(),
         ),
         );
       },
