@@ -27,34 +27,33 @@ class HomePage extends StatelessWidget {
         child: Container(
           color: MyColors.white,
           child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: humanData.items.length,
-                  itemBuilder: (context, int index) =>
-                      ChangeNotifierProvider.value(
-                        value: humanData.items[index],
-                        child: Container(
-                          // color: MyColors().randomColor(), //TODO: delete
-                          color: MyColors.white,
-                          height: _height * 0.15,
-                          margin: EdgeInsets.only(bottom: _height * 0.005, top: _height * 0.005),
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => HumanItemView(
-                                    human: humanData.items[index],
-                                    width: _width * 0.8,
-                                    height: _height * 0.8,
-                                  ),
-                              );
-                            },
-                            child: ItemHuman(width: _width, height: _height * 0.15,),
-                          ),
-                        ),
+            scrollDirection: Axis.vertical,
+            itemCount: humanData.items.length,
+            itemBuilder: (context, int index) =>
+              ChangeNotifierProvider.value(
+                value: humanData.items[index],
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => HumanItemView(
+                        human: humanData.items[index],
+                        width: _width * 0.8,
+                        height: _height * 0.8,
                       ),
+                    );
+                  },
+                  child: Container(
+                    color: MyColors.white,
+                    height: _height * 0.15,
+                    margin: EdgeInsets.only(bottom: _height * 0.005, top: _height * 0.005),
+                    child: ItemHuman(width: _width, height: _height * 0.15,),
+                  ),
                 ),
               ),
           ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {

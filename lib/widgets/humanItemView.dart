@@ -49,7 +49,7 @@ class HumanItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
-    final humansData = Provider.of<DataProvider>(context);
+    final humansData = Provider.of<DataProvider>(context, listen: false);
 
     return Dialog(
       child: Container(
@@ -120,16 +120,13 @@ class HumanItemView extends StatelessWidget {
               flex: 2,
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text("Навыки: ",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                  Text("Навыки: ",
+                    style: TextStyle(
+                      fontSize: 16,
                     ),
                   ),
                   Expanded(
-                      flex: 3,
+                      flex: 1,
                       child: _SkillBox(skillsList: human.skills,),
                   ),
                 ],
@@ -140,16 +137,13 @@ class HumanItemView extends StatelessWidget {
               flex: 2,
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text("Хобби: ",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                  Text("Хобби:    ",
+                    style: TextStyle(
+                      fontSize: 16,
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 1,
                     child: _SkillBox(skillsList: human.hobbies,),
                   ),
                 ],

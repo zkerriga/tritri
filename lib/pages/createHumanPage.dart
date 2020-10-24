@@ -4,6 +4,12 @@ import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
+}
+
 class CreateHumanPage extends StatelessWidget {
   const CreateHumanPage({Key key}) : super(key: key);
 
@@ -108,7 +114,7 @@ class _CreateHumanState extends State {
                                   labelText: 'Имя',
                                 ),
                                 onSaved: (String value) {
-                                  _firstName = value;
+                                  _firstName = value.capitalize();
                                 },
                                 validator: _validateName,
                               ),
@@ -119,7 +125,7 @@ class _CreateHumanState extends State {
                                   labelText: 'Фамилия',
                                 ),
                                 onSaved: (String value) {
-                                  _lastName = value;
+                                  _lastName = value.capitalize();
                                 },
                                 validator: _validateLastName,
                               ),
@@ -130,7 +136,7 @@ class _CreateHumanState extends State {
                                   labelText: 'Ссылка',
                                 ),
                                 onSaved: (String value) {
-                                  _link = value;
+                                  _link = value.toLowerCase();
                                 },
                                 validator: _validateLink,
                               ),
