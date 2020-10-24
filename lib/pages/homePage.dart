@@ -60,7 +60,12 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           // humanData.deleteAll(44213); //TODO: special for delete all!
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => CreateHumanPage())
+              builder: (context) => Container(
+                height: _height,
+                width: _width,
+                child: CreateHumanPage(),
+              ),
+            ),
           );
         },
         elevation: 5,

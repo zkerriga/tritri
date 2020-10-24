@@ -13,7 +13,7 @@ class SkillsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<WidgetSpan> _widgetsList = <WidgetSpan>[];
+    final List<WidgetSpan> _widgetsList = <WidgetSpan>[];
     skillsList.forEach((skill) {
       _widgetsList.add(
           WidgetSpan(
@@ -33,18 +33,9 @@ class SkillsContainer extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: _widgetsList,
-        /*[
-          ...List.generate(skillsList.length, (index) => WidgetSpan(
-            child: Text('chip ${skillsList[index]}'),
-            alignment: PlaceholderAlignment.middle,
-          )),
-        ],*/
       ),
       maxLines: 1,
     );
-    // return Row(
-    //   children: _widgetsList,
-    // );
   }
 }
 

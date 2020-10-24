@@ -17,6 +17,7 @@ class CreateHumanPage extends StatelessWidget {
         backgroundColor: MyColors.lightBlue,
       ),
       backgroundColor: MyColors.white,
+      resizeToAvoidBottomPadding: false,
       body: CreateHumanForm(),
     );
   }
@@ -36,8 +37,8 @@ class _PhotoBlock extends StatelessWidget {
       // crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
-          flex: 5,
-          child: Container(
+          flex: 4,
+          child: Center(
             child: CircleAvatar(
               maxRadius: 500,
               backgroundImage: NetworkImage(_catImageURL),
@@ -111,6 +112,8 @@ class CreateHumanState extends State {
     return Form(
       key: _formKey,
       child: Container(
+        width: _width,
+        height: _height,
         padding: EdgeInsets.all(_width * 0.05),
         child: Column(
           children: <Widget>[
