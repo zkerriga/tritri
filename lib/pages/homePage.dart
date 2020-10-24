@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
-import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/widgets/humanItemView.dart';
 import 'package:tritri/widgets/itemHuman.dart';
@@ -54,22 +53,29 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          // humanData.deleteAll(44213); //TODO: special for delete all!
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Container(
-                height: _height,
-                width: _width,
-                child: CreateHumanPage(),
-              ),
-            ),
-          );
-        },
-        elevation: 5,
-        tooltip: "Добавить карточку",
-      ),
+      floatingActionButton: _BottomPlusButton(),
+    );
+  }
+}
+
+class _BottomPlusButton extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      foregroundColor: MyColors.pink,
+      backgroundColor: MyColors.white,
+      splashColor: MyColors.lightBlue,
+      child: Icon(Icons.add),
+      onPressed: () {
+        // humanData.deleteAll(44213); //TODO: special for delete all!
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => CreateHumanPage(),
+          ),
+        );
+      },
+      elevation: 3,
+      tooltip: "Добавить карточку",
     );
   }
 }

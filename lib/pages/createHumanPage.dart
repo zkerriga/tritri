@@ -4,9 +4,18 @@ import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 
-extension StringExtension on String {
+extension _StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
+  List<String> toSkillsList() {
+    const String _splitter = " ";
+    return this
+        .replaceAll(RegExp(r"^[ ,.]+"), "")
+        .replaceAll(RegExp(r"[ ,.]+$"), "")
+        .toLowerCase()
+        .replaceAll(RegExp(r"[ ,.]+"), _splitter)
+        .split(_splitter);
   }
 }
 
@@ -43,7 +52,7 @@ class _CreateHumanState extends State {
   static const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
 
   Widget build(BuildContext context) {
-    final humanData = Provider.of<DataProvider>(context);
+    final humanData = Provider.of<DataProvider>(context, listen: false);
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
@@ -67,19 +76,10 @@ class _CreateHumanState extends State {
         return ("Без этого никак!");
       return null;
     }
-    List<String> _toSkillsList(String value) {
-      const String _splitter = " ";
-      return value
-          .replaceAll(RegExp(r"^[ ,.]+"), "")
-          .replaceAll(RegExp(r"[ ,.]+$"), "")
-          .toLowerCase()
-          .replaceAll(RegExp(r"[ ,.]+"), _splitter)
-          .split(_splitter);
-    }
     return Form(
       key: _formKey,
       child: ListView(
-        children: [
+        children: <Widget>[
           Container(
             width: _width,
             height: _height,
@@ -103,7 +103,6 @@ class _CreateHumanState extends State {
                       Expanded(
                         flex: 10,
                         child: Container(
-                          // padding: const EdgeInsets.only(left: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
@@ -156,7 +155,7 @@ class _CreateHumanState extends State {
                       hintText: 'Навыки человека?',
                       labelText: 'Навыки',
                     ),
-                    onSaved: (String value) => _skillsList = _toSkillsList(value),
+                    onSaved: (String value) => _skillsList = value.toSkillsList(),
                     validator: _validateLists,
                   ),
                 ),
@@ -168,7 +167,7 @@ class _CreateHumanState extends State {
                       hintText: 'Хобби человека?',
                       labelText: 'Хобби',
                     ),
-                    onSaved: (String value) => _hobbiesList = _toSkillsList(value),
+                    onSaved: (String value) => _hobbiesList = value.toSkillsList(),
                     validator: _validateLists,
                   ),
                 ),
@@ -179,7 +178,6 @@ class _CreateHumanState extends State {
                     iconSize: _width * 0.2,
                     color: MyColors.purple,
                     onPressed: () {
-                      // Validate returns true if the form is valid, otherwise false.
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
                         Scaffold

@@ -8,7 +8,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper with ChangeNotifier {
-  static const String _tableName = "Humans";
+  static const String mainTableName = "Humans";
+  // static const String skillTableName = "Skills";
+  // static const String linkTableName = "linkSkillsToHumans";
   Database db;
 
   DBHelper() {
@@ -16,13 +18,13 @@ class DBHelper with ChangeNotifier {
   }
   initDB() async {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = join(documentsDirectory.path, "$_tableName.db");
+    final String path = join(documentsDirectory.path, "$mainTableName.db");
     db = await openDatabase(
         path,
         version: 1,
         onCreate: (Database db, int version) async {
           return await db.execute(
-              "CREATE TABLE $_tableName ("
+              "CREATE TABLE $mainTableName ("
                   "id INTEGER PRIMARY KEY,"
                   "firstName TEXT,"
                   "lastName TEXT,"
@@ -33,19 +35,19 @@ class DBHelper with ChangeNotifier {
           );
         },
     );
-    print("[+] INIT DB");
+    // print("[+] INIT DB");
     notifyListeners();
   }
   Future<void> insert(Map<String, dynamic> data) async {
-    await db.insert(_tableName, data,
+    await db.insert(mainTableName, data,
         conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
   Future<void> delete(int id) async {
-    await db.delete(_tableName, where: "id = ?", whereArgs: [id]);
+    await db.delete(mainTableName, where: "id = ?", whereArgs: [id]);
   }
   Future<List<Map<String, dynamic>>> getData() async {
-    return await db.query(_tableName);
+    return await db.query(mainTableName);
   }
 }
 
