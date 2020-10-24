@@ -4,6 +4,7 @@ import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/myColors.dart';
 import 'package:tritri/widgets/humanItemView.dart';
 import 'package:tritri/widgets/itemHuman.dart';
+import 'package:tritri/widgets/myAppBar.dart';
 import 'package:tritri/pages/createHumanPage.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,10 +18,7 @@ class HomePage extends StatelessWidget {
     final _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TriTri'),
-        backgroundColor: MyColors.lightBlue,
-      ),
+      appBar: getMyAppBar(context),
       backgroundColor: MyColors.white,
       body: SafeArea(
         child: Container(
