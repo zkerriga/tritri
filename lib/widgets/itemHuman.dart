@@ -13,21 +13,38 @@ class SkillsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<Widget> _widgetsList = <Widget>[];
+    List<WidgetSpan> _widgetsList = <WidgetSpan>[];
     skillsList.forEach((skill) {
-      _widgetsList.add(Container(
-        padding: const EdgeInsets.all(2),
-        margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
-        child: Text(skill),
-        decoration: BoxDecoration(
-          color: MyColors().randomColor(),
-          borderRadius: BorderRadius.circular(3.5),
-        ),
-      ));
+      _widgetsList.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: Container(
+              padding: const EdgeInsets.all(2.5),
+              margin: const EdgeInsets.only(left: 0, top: 3, right: 4, bottom: 3),
+              child: Text(skill),
+              decoration: BoxDecoration(
+                color: MyColors().randomColor(),
+                borderRadius: BorderRadius.circular(3.5),
+              ),
+            ),
+          ),
+      );
     });
-    return Row(
-      children: _widgetsList,
+    return Text.rich(
+      TextSpan(
+        children: _widgetsList,
+        /*[
+          ...List.generate(skillsList.length, (index) => WidgetSpan(
+            child: Text('chip ${skillsList[index]}'),
+            alignment: PlaceholderAlignment.middle,
+          )),
+        ],*/
+      ),
+      maxLines: 1,
     );
+    // return Row(
+    //   children: _widgetsList,
+    // );
   }
 }
 
