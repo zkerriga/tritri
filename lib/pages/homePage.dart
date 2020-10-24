@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
-import 'package:tritri/pages/humanItemView.dart';
+import 'package:tritri/widgets/humanItemView.dart';
 import 'package:tritri/widgets/itemHuman.dart';
 import 'package:tritri/pages/createHumanPage.dart';
 
@@ -33,7 +33,8 @@ class HomePage extends StatelessWidget {
                       ChangeNotifierProvider.value(
                         value: humanData.items[index],
                         child: Container(
-                          color: MyColors().randomColor(), //TODO: delete
+                          // color: MyColors().randomColor(), //TODO: delete
+                          color: MyColors.white,
                           height: _height * 0.15,
                           margin: EdgeInsets.only(bottom: _height * 0.01),
                           child: GestureDetector(

@@ -34,7 +34,7 @@ class MyColors {
     if (i == 0) return purple;
     else if (i == 1) return lightPink;
     else if (i == 2) return lightBlue;
-    else return white;
+    else return pink;
   }
 }
 

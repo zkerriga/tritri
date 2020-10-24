@@ -33,6 +33,7 @@ class Human with ChangeNotifier {
 
   String get firstName => _firstName;
   String get lastName => _lastName;
+  String get link => _link;
   UnmodifiableListView<String> get skills => UnmodifiableListView(_skillsList);
   UnmodifiableListView<String> get hobbies => UnmodifiableListView(_hobbiesList);
 

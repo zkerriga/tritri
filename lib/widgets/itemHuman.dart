@@ -4,31 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
-import 'package:flutter_dash/flutter_dash.dart';
 import 'package:tritri/myColors.dart';
 
 class SkillsContainer extends StatelessWidget {
   final UnmodifiableListView<String> skillsList;
-  final double width;
-  const SkillsContainer({Key key, this.skillsList, this.width}) : super(key: key);
+  const SkillsContainer({Key key, this.skillsList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /*ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: skillsList.length,
-      itemBuilder: (context, int skillIndex) {
-        return Container(
-          padding: const EdgeInsets.all(2),
-          margin: const EdgeInsets.only(left: 0, top: 3, right: 3, bottom: 3),
-          child: Text(skillsList[skillIndex]),
-          decoration: BoxDecoration(
-            color: (skillIndex % 2 == 0) ? MyColors.lightBlue : MyColors.lightPink,
-            borderRadius: BorderRadius.circular(3.5),
-          ),
-        );
-      },
-    );*/
+
     List<Widget> _widgetsList = <Widget>[];
     skillsList.forEach((skill) {
       _widgetsList.add(Container(
@@ -99,30 +83,12 @@ class ItemHuman extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 2,
-                      child: SkillsContainer(skillsList: human.skills, width: width * 5 / 7,),
+                      child: SkillsContainer(skillsList: human.skills,),
                     ),
                     Expanded(
                       flex: 2,
-                      child: SkillsContainer(skillsList: human.hobbies, width: width * 5 / 7,),
+                      child: SkillsContainer(skillsList: human.hobbies,),
                     ),
-                    Container(
-                      width: 10,
-                      height: 10,
-                      color: MyColors.pink,
-                      child: IconButton(
-                        icon: Icon(Icons.delete),
-                        iconSize: 10,
-                        color: MyColors.purple,
-                        onPressed: () {
-                          humansData.deleteHuman(human.id);
-                        },
-                      ),
-                    ),
-                    /*Dash(
-                      direction: Axis.horizontal,
-                      dashLength: 3,
-                      dashColor: MyColors.lightPink,
-                    ),*/
                   ],
                 ),
               ),

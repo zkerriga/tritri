@@ -201,7 +201,7 @@ class CreateHumanState extends State {
               flex: 3,
               child: IconButton(
                 icon: Icon(Icons.check),
-                iconSize: 50,
+                iconSize: _width * 0.2,
                 color: MyColors.purple,
                 onPressed: () {
                   // Validate returns true if the form is valid, otherwise false.
