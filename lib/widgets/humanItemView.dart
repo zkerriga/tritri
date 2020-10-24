@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tritri/models/human.dart';
@@ -159,9 +160,7 @@ class HumanItemView extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(Icons.edit),
                       color: MyColors.purple,
-                      onPressed: () {
-                        humansData.deleteHuman(human.id);
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   Expanded(
@@ -170,7 +169,40 @@ class HumanItemView extends StatelessWidget {
                       icon: Icon(Icons.delete),
                       color: MyColors.purple,
                       onPressed: () {
-                        humansData.deleteHuman(human.id);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Удалить карточку?"),
+                              content: Text('Карточка будет удалена безвозвратно!'),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text(
+                                    "Да",
+                                    style: TextStyle(color: MyColors.black),
+                                  ),
+                                  onPressed: () {
+                                    humansData.deleteHuman(human.id);
+                                    Navigator.of(context, rootNavigator: true).pop(0);
+                                    Navigator.of(context, rootNavigator: true).pop(0);
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text(
+                                    "Нет",
+                                    style: TextStyle(color: MyColors.black),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true).pop(0);
+                                  },
+                                ),
+                              ],
+                              // elevation: 1,
+                            );
+                          }
+                        );
+                        // humansData.deleteHuman(human.id);
+                        // Navigator.of(context, rootNavigator: true).pop(0);
                       },
                     ),
                   ),

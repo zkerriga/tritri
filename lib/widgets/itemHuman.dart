@@ -6,9 +6,9 @@ import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
 import 'package:tritri/myColors.dart';
 
-class SkillsContainer extends StatelessWidget {
+class _SkillsContainer extends StatelessWidget {
   final UnmodifiableListView<String> skillsList;
-  const SkillsContainer({Key key, this.skillsList}) : super(key: key);
+  const _SkillsContainer({Key key, this.skillsList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +54,7 @@ class ItemHuman extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // Text("${_width.round()}-${_height.round()}"),
           Expanded(
             flex: 2,
             child: Center(
@@ -74,12 +71,6 @@ class ItemHuman extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    /*Container(
-                      child: Text(
-                        '${human.firstName} ${human.lastName}',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),*/
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -91,11 +82,11 @@ class ItemHuman extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 2,
-                      child: SkillsContainer(skillsList: human.skills,),
+                      child: _SkillsContainer(skillsList: human.skills,),
                     ),
                     Expanded(
                       flex: 2,
-                      child: SkillsContainer(skillsList: human.hobbies,),
+                      child: _SkillsContainer(skillsList: human.hobbies,),
                     ),
                   ],
                 ),
