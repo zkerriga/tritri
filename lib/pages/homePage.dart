@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/myColors.dart';
+import 'package:tritri/pages/drawerPage.dart';
 import 'package:tritri/widgets/bottomFAButtons.dart';
 import 'package:tritri/widgets/humanBuilder.dart';
 import 'package:tritri/widgets/myAppBar.dart';
@@ -35,6 +36,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+      drawer: DrawerPage(),
       floatingActionButton: BottomFAButtons(),
     );
   }

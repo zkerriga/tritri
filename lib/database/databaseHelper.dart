@@ -55,18 +55,24 @@ class DBHelper with ChangeNotifier {
 class DataProvider with ChangeNotifier {
   final DBHelper dbHelper;
   List<Human> _items = [];
+  Set<String> _skillsSet = Set();
+  Set<String> _hobbiesSet = Set();
 
   DataProvider(this._items, {this.dbHelper}) {
     if (dbHelper != null)
       fetchAndSetData();
   }
 
+  int get skillsQuantity => _skillsSet.length;
+  int get hobbiesQuantity => _hobbiesSet.length;
   List<Human> get items => [..._items];
 
   void addHuman(Human newHuman) {
     if (dbHelper.db != null) { // do not execute if db is not instantiate
       newHuman.setHumanId(DateTime.now().millisecondsSinceEpoch);
       _items.add(newHuman);
+      _skillsSet.addAll(newHuman.skills);
+      _hobbiesSet.addAll(newHuman.hobbies);
       notifyListeners();
       dbHelper.insert(newHuman.toMap());
     }
@@ -99,6 +105,10 @@ class DataProvider with ChangeNotifier {
             .toList()
           : [];
       notifyListeners();
+      _items.forEach((Human human) {
+        _skillsSet.addAll(human.skills);
+        _hobbiesSet.addAll(human.hobbies);
+      });
     }
   }
 }
