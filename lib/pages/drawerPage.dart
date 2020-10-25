@@ -13,14 +13,14 @@ class DrawerPage extends StatelessWidget {
         Text(
           "$number ",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            fontWeight: FontWeight.normal,
             color: MyColors.black,
           ),
         ),
         Icon(
           myIcon,
-          size: 20,
+          size: 18,
           color: MyColors.black,
         ),
       ],
@@ -38,7 +38,7 @@ class DrawerPage extends StatelessWidget {
             Icon(
               myIcon,
               size: 18,
-              color: MyColors.black,
+              color: MyColors.gray,
             ),
             SizedBox(width: 18,),
             Text(
@@ -62,6 +62,7 @@ class DrawerPage extends StatelessWidget {
     final Function simplePopFunc = () { Navigator.pop(context); };
 
     return Drawer(
+      elevation: 4,
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,

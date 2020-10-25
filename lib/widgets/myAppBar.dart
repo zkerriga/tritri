@@ -8,6 +8,7 @@ getMyAppBar(BuildContext context) => AppBar(
       style: TextStyle(color: MyColors.black),
   ),
   backgroundColor: MyColors.lightBlue,
+  elevation: 1.5,
   actions: [
     IconButton(
       icon: Icon(Icons.lock_open),

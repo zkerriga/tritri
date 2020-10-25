@@ -27,6 +27,7 @@ class BottomFAButtons extends StatelessWidget {
           width: _iconSize,
           height: _iconSize,
           child: RawMaterialButton(
+            elevation: 1.5,
             fillColor: MyColors.white,
             splashColor: MyColors.lightBlue,
             shape: CircleBorder(),
@@ -70,6 +71,7 @@ class BottomFAButtons extends StatelessWidget {
           width: _iconSize,
           height: _iconSize,
           child: RawMaterialButton(
+            elevation: 1.5,
             fillColor: MyColors.white,
             splashColor: MyColors.lightBlue,
             shape: CircleBorder(),

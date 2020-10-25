@@ -11,6 +11,7 @@ class MyColors {
   static const Color brightBlue   = Color(0xFFA2D2FF);
   static const Color white        = Color(0xFFFFFCFC);
   static const Color black        = Color(0xFF2C3333);
+  static const Color gray        = Color(0xFFAFBBC7);
 
   static const MaterialColor palette = MaterialColor(
     _palettePrimaryValue,
