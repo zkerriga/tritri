@@ -18,7 +18,6 @@ class ItemHuman extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final human = Provider.of<Human>(context, listen: false);
-    const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
 
     return Container(
       padding: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05),
@@ -29,7 +28,7 @@ class ItemHuman extends StatelessWidget {
             child: Center(
               child: CircleAvatar(
                 maxRadius: 500,
-                backgroundImage: NetworkImage(_catImageURL),
+                backgroundImage: AssetImage("assets/images/cat.png"),
               ),
             )
           ),

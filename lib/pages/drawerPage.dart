@@ -32,7 +32,6 @@ class DrawerPage extends StatelessWidget {
     return GestureDetector(
       onTap: tapFunc,
       child: Container(
-        // padding: const EdgeInsets.only(top: 8, bottom: 8),
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
@@ -59,7 +58,6 @@ class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final humanData = Provider.of<DataProvider>(context, listen: false);
-    const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
     final Function simplePopFunc = () { Navigator.pop(context); };
     final Function openSyncPage = () {
       Navigator.pop(context);
@@ -84,7 +82,7 @@ class DrawerPage extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   minRadius: 50,
-                  backgroundImage: NetworkImage(_catImageURL),
+                  backgroundImage: AssetImage("assets/images/cat.png"),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

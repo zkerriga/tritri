@@ -107,7 +107,6 @@ class HumanItemView extends StatelessWidget {
 }
 
 class _TopRow extends StatelessWidget {
-  static const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
   final double width;
   final double height;
   final Human human;
@@ -126,7 +125,7 @@ class _TopRow extends StatelessWidget {
           flex: 4,
           child: CircleAvatar(
             radius: width / 6,
-            backgroundImage: NetworkImage(_catImageURL),
+            backgroundImage: AssetImage("assets/images/cat.png"),
           ),
         ),
         Spacer(flex: 1,),

@@ -50,7 +50,6 @@ class _CreateHumanState extends State {
   String        _link = "_";
   List<String>  _skillsList = [];
   List<String>  _hobbiesList = [];
-  static const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
 
   Widget build(BuildContext context) {
     final humanData = Provider.of<DataProvider>(context, listen: false);
@@ -98,7 +97,7 @@ class _CreateHumanState extends State {
                         child: Center(
                           child: CircleAvatar(
                             maxRadius: 500,
-                            backgroundImage: NetworkImage(_catImageURL),
+                            backgroundImage: AssetImage("assets/images/cat.png"),
                           ),
                         ),
                       ),
