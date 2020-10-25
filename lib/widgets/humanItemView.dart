@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tritri/models/human.dart';
-import 'package:tritri/myColors.dart';
+import 'package:tritri/models/myColors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';

@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:tritri/myColors.dart';
+import 'package:tritri/models/myColors.dart';
 
 class SkillContainer extends StatelessWidget {
   final String skill;

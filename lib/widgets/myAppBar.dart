@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tritri/myColors.dart';
+import 'package:tritri/models/myColors.dart';
 import 'package:tritri/pages/searchPage.dart';
 
 getMyAppBar(BuildContext context) => AppBar(
@@ -16,7 +16,7 @@ getMyAppBar(BuildContext context) => AppBar(
       color: MyColors.black,
       onPressed: () {},
     ),
-    IconButton(
+/*    IconButton(
       icon: Icon(Icons.search),
       splashColor: MyColors.transparent,
       highlightColor: MyColors.transparent,
@@ -27,6 +27,6 @@ getMyAppBar(BuildContext context) => AppBar(
         ),
         );
       },
-    ),
+    ),*/
   ],
 );

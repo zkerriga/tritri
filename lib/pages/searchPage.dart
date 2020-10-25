@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/human.dart';
-import 'package:tritri/myColors.dart';
 import 'package:search_page/search_page.dart';
-import 'package:tritri/widgets/humanItemView.dart';
-import 'package:tritri/widgets/itemHuman.dart';
 
 class MySearchPage extends StatelessWidget {
   const MySearchPage({Key key}) : super(key: key);
