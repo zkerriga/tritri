@@ -31,7 +31,6 @@ class HomePage extends StatelessWidget {
                 human: humanData.items[index],
                 width: _width,
                 height: _height,
-                humanData: humanData,
               ),
           ),
         ),

@@ -59,12 +59,14 @@ class _CreateHumanState extends State {
 
     _validateName(String value) {
       if (value.isEmpty)
-        return ("Стоит добавить имя");
+        return ("Нет имени");
       if (value.contains('@'))
         return ("Только буквы");
       return null;
     }
     _validateLastName(String value) {
+      if (value.isEmpty)
+        return ("Нет фамилии");
       if (value.contains('@'))
         return ("Только буквы");
       return null;
@@ -136,7 +138,7 @@ class _CreateHumanState extends State {
                                   labelText: 'Ссылка',
                                 ),
                                 onSaved: (String value) {
-                                  _link = value.toLowerCase();
+                                  _link = value.replaceAll(RegExp(r" +$"), "").toLowerCase();
                                 },
                                 validator: _validateLink,
                               ),

@@ -12,17 +12,17 @@ class HumanBuilder extends StatelessWidget {
   final Human human;
   final double width;
   final double height;
-  final DataProvider humanData;
   const HumanBuilder({
     Key key,
     @required this.human,
     @required this.width,
     @required this.height,
-    @required this.humanData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final humanData = Provider.of<DataProvider>(context, listen: false);
+
     return ChangeNotifierProvider.value(
       value: human,
       child: GestureDetector(
