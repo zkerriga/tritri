@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/myColors.dart';
 import 'package:tritri/widgets/bottomFAButtons.dart';
 import 'package:tritri/widgets/humanBuilder.dart';
-import 'package:tritri/widgets/humanItemView.dart';
-import 'package:tritri/widgets/itemHuman.dart';
 import 'package:tritri/widgets/myAppBar.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,7 +27,12 @@ class HomePage extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: humanData.items.length,
             itemBuilder: (context, int index) =>
-              HumanBuilder(human: humanData.items[index], width: _width, height: _height, humanData: humanData),
+              HumanBuilder(
+                human: humanData.items[index],
+                width: _width,
+                height: _height,
+                humanData: humanData,
+              ),
           ),
         ),
       ),

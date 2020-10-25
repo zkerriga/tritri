@@ -1,11 +1,14 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
+
 import 'package:tritri/models/myColors.dart';
 
 class SkillContainer extends StatelessWidget {
   final String skill;
-  const SkillContainer(this.skill, {Key key}) : super(key: key);
+  const SkillContainer({
+    Key key,
+    @required this.skill,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,11 @@ class SkillContainer extends StatelessWidget {
 class SkillBox extends StatelessWidget {
   final UnmodifiableListView<String> skillsList;
   final int maxLines;
-  const SkillBox(this.skillsList, {Key key, this.maxLines}) : super(key: key);
+  const SkillBox({
+    Key key,
+    this.maxLines,
+    @required this.skillsList,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +41,7 @@ class SkillBox extends StatelessWidget {
       _widgetsList.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: SkillContainer(skill),
+          child: SkillContainer(skill: skill),
         ),
       );
     });

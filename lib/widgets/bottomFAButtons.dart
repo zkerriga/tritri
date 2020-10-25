@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tritri/pages/createHumanPage.dart';
 import 'package:search_page/search_page.dart';
+import 'package:provider/provider.dart';
+
+import 'package:tritri/pages/createHumanPage.dart';
 import 'package:tritri/models/myColors.dart';
 import 'package:tritri/models/human.dart';
-import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 
 import 'humanBuilder.dart';
@@ -40,11 +41,16 @@ class BottomFAButtons extends StatelessWidget {
                 human.firstName,
                 human.lastName,
                 human.link,
-                human.skills.toString(),
-                human.hobbies.toString(),
+                human.getSkillsString(),
+                human.getHobbiesString(),
               ],
               builder: (Human human) =>
-                HumanBuilder(human: human, width: _width, height: _height, humanData: humanData),
+                HumanBuilder(
+                  human: human,
+                  width: _width,
+                  height: _height,
+                  humanData: humanData
+                ),
             ),
           ),
           heroTag: null,

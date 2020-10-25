@@ -2,6 +2,13 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 class Human with ChangeNotifier {
+  static const String mapId = "id";
+  static const String mapFirstName = "firstName";
+  static const String mapLastName = "lastName";
+  static const String mapLink = "link";
+  static const String mapSkillsList = "skillsList";
+  static const String mapHobbiesList = "hobbiesList";
+
   int           id;
   String        _firstName;
   String        _lastName;
@@ -19,12 +26,12 @@ class Human with ChangeNotifier {
       );
 
   Human.map(Map humanMap) {
-    this.id           = humanMap["id"];
-    this._firstName   = humanMap["firstName"];
-    this._lastName    = humanMap["lastName"];
-    this._link        = humanMap["link"];
-    this._skillsList  = humanMap["skillsList"].split(Human.separator);
-    this._hobbiesList = humanMap["lastName"].split(Human.separator);
+    this.id           = humanMap[mapId];
+    this._firstName   = humanMap[mapFirstName];
+    this._lastName    = humanMap[mapLastName];
+    this._link        = humanMap[mapLink];
+    this._skillsList  = humanMap[mapSkillsList].split(Human.separator);
+    this._hobbiesList = humanMap[mapHobbiesList].split(Human.separator);
   }
 
   String get firstName => _firstName;
@@ -44,11 +51,11 @@ class Human with ChangeNotifier {
   }
   Map<String, dynamic> toMap() {
     return Map<String, dynamic>()
-    ..["id"] = id
-    ..["firstName"] = _firstName
-    ..["lastName"] = _lastName
-    ..["link"] = _link
-    ..["skillsList"] = getSkillsString()
-    ..["hobbiesList"] = getHobbiesString();
+    ..[mapId] = id
+    ..[mapFirstName] = _firstName
+    ..[mapLastName] = _lastName
+    ..[mapLink] = _link
+    ..[mapSkillsList] = getSkillsString()
+    ..[mapHobbiesList] = getHobbiesString();
   }
 }

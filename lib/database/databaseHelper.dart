@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:tritri/models/human.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'package:tritri/models/human.dart';
 
 class DBHelper with ChangeNotifier {
   static const String mainTableName = "Humans";
@@ -25,12 +26,12 @@ class DBHelper with ChangeNotifier {
         onCreate: (Database db, int version) async {
           return await db.execute(
               "CREATE TABLE $mainTableName ("
-                  "id INTEGER PRIMARY KEY,"
-                  "firstName TEXT,"
-                  "lastName TEXT,"
-                  "link TEXT,"
-                  "skillsList TEXT,"
-                  "hobbiesList TEXT"
+                  "${Human.mapId} INTEGER PRIMARY KEY,"
+                  "${Human.mapFirstName} TEXT,"
+                  "${Human.mapLastName} TEXT,"
+                  "${Human.mapLink} TEXT,"
+                  "${Human.mapSkillsList} TEXT,"
+                  "${Human.mapHobbiesList} TEXT"
                   ")"
           );
         },
@@ -44,7 +45,7 @@ class DBHelper with ChangeNotifier {
     );
   }
   Future<void> delete(int id) async {
-    await db.delete(mainTableName, where: "id = ?", whereArgs: [id]);
+    await db.delete(mainTableName, where: "${Human.mapId} = ?", whereArgs: [id]);
   }
   Future<List<Map<String, dynamic>>> getData() async {
     return await db.query(mainTableName);

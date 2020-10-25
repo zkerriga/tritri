@@ -31,11 +31,13 @@ class MyColors {
   static const int _palettePrimaryValue = 0xFFFFFCFC;
 
   Color randomColor() {
-    int i = Random().nextInt(4);
-    if (i == 0) return purple;
-    else if (i == 1) return lightPink;
-    else if (i == 2) return lightBlue;
-    else return pink;
+    switch (Random().nextInt(4)) {
+      case 0: return purple;
+      case 1: return lightPink;
+      case 2: return lightBlue;
+      case 3: return pink;
+      default: return brightBlue;
+    }
   }
 }
 

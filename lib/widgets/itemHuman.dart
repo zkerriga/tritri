@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tritri/models/human.dart';
-import 'package:tritri/widgets/skillContainer.dart';
+
+import 'skillContainer.dart';
 
 class ItemHuman extends StatelessWidget {
   final double width;
   final double height;
-  const ItemHuman({Key key, this.width, this.height}) : super(key: key);
+  const ItemHuman({
+    Key key,
+    @required this.width,
+    @required this.height
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +48,11 @@ class ItemHuman extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: SkillBox(human.skills, maxLines: 1,),
+                    child: SkillBox(skillsList: human.skills, maxLines: 1,),
                   ),
                   Expanded(
                     flex: 1,
-                    child: SkillBox(human.hobbies, maxLines: 1,),
+                    child: SkillBox(skillsList: human.hobbies, maxLines: 1,),
                   ),
                 ],
               ),

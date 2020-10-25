@@ -1,17 +1,24 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tritri/models/human.dart';
-import 'package:tritri/models/myColors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
+
+import 'package:tritri/models/human.dart';
+import 'package:tritri/models/myColors.dart';
 import 'package:tritri/database/databaseHelper.dart';
-import 'package:tritri/widgets/skillContainer.dart';
+
+import 'skillContainer.dart';
 
 class HumanItemView extends StatelessWidget {
   final double width;
   final double height;
   final Human human;
-  const HumanItemView({Key key, this.human, this.width, this.height}) : super(key: key);
+  const HumanItemView({
+    Key key,
+    @required this.human,
+    @required this.width,
+    @required this.height
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,7 @@ class HumanItemView extends StatelessWidget {
           children: <Widget>[
             Expanded(
               flex: 2,
-              child: _TopRow(width, height, human),
+              child: _TopRow(human: human, width: width, height: height,),
             ),
             Divider(),
             Expanded(
@@ -41,7 +48,7 @@ class HumanItemView extends StatelessWidget {
                   ),
                   Expanded(
                       flex: 1,
-                      child: SkillBox(human.skills),
+                      child: SkillBox(skillsList: human.skills),
                   ),
                 ],
               ),
@@ -58,7 +65,7 @@ class HumanItemView extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: SkillBox(human.hobbies),
+                    child: SkillBox(skillsList: human.hobbies),
                   ),
                 ],
               ),
@@ -84,7 +91,7 @@ class HumanItemView extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (_) => _DeleteAlertDialog(humansData, human),
+                          builder: (_) => _DeleteAlertDialog(human: human, humansData: humansData,),
                         );
                       },
                     ),
@@ -104,7 +111,12 @@ class _TopRow extends StatelessWidget {
   final double width;
   final double height;
   final Human human;
-  const _TopRow(this.width, this.height, this.human, {Key key}) : super(key: key);
+  const _TopRow({
+    Key key,
+    @required this.human,
+    @required this.width,
+    @required this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -160,15 +172,19 @@ class _TopRow extends StatelessWidget {
 }
 
 class _DeleteAlertDialog extends StatelessWidget {
-  final humansData;
-  final human;
-  const _DeleteAlertDialog(this.humansData, this.human, {Key key}) : super(key: key);
+  final DataProvider humansData;
+  final Human human;
+  const _DeleteAlertDialog({
+    Key key,
+    @required this.human,
+    @required this.humansData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Удалить карточку?"),
-      content: Text('Карточка будет удалена безвозвратно!'),
+      content: Text("Карточка будет удалена безвозвратно!"),
       actions: <Widget>[
         FlatButton(
           child: Text(
