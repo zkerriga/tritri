@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/myColors.dart';
-import 'package:tritri/pages/yandexDiskPage.dart';
+import 'package:tritri/pages/syncPage.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key key}) : super(key: key);
@@ -61,10 +61,10 @@ class DrawerPage extends StatelessWidget {
     final humanData = Provider.of<DataProvider>(context, listen: false);
     const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
     final Function simplePopFunc = () { Navigator.pop(context); };
-    final Function openYandexPage = () {
+    final Function openSyncPage = () {
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(
-          builder: (context) => YandexDiskPage(),
+          builder: (context) => SyncPage(),
       ));
     };
 
@@ -109,7 +109,7 @@ class DrawerPage extends StatelessWidget {
               ],
             ),
           ),
-          drawerListRow(context, Icons.sync, "Синхронизация", openYandexPage,),
+          drawerListRow(context, Icons.sync, "Синхронизация", openSyncPage,),
           drawerListRow(context, Icons.palette, "Кастомизация", simplePopFunc,),
           drawerListRow(context, Icons.settings, "Настройки", simplePopFunc,),
           drawerListRow(context, Icons.change_history, "Достижения", simplePopFunc,),
