@@ -27,10 +27,39 @@ class DrawerPage extends StatelessWidget {
     );
   }
 
+  Widget drawerListRow(BuildContext context, IconData myIcon, String myText, Function tapFunc) {
+    return GestureDetector(
+      onTap: tapFunc,
+      child: Container(
+        // padding: const EdgeInsets.only(top: 8, bottom: 8),
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Icon(
+              myIcon,
+              size: 18,
+              color: MyColors.black,
+            ),
+            SizedBox(width: 18,),
+            Text(
+              myText,
+              style: TextStyle(
+                color: MyColors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final humanData = Provider.of<DataProvider>(context, listen: false);
     const String _catImageURL = 'https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png';
+    final Function simplePopFunc = () { Navigator.pop(context); };
 
     return Drawer(
       child: ListView(
@@ -72,24 +101,12 @@ class DrawerPage extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            title: Text('Item 1'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Text('Item 2'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
+          drawerListRow(context, Icons.sync, "Синхронизация", simplePopFunc,),
+          drawerListRow(context, Icons.palette, "Кастомизация", simplePopFunc,),
+          drawerListRow(context, Icons.settings, "Настройки", simplePopFunc,),
+          drawerListRow(context, Icons.change_history, "Достижения", simplePopFunc,),
+          drawerListRow(context, Icons.payment, "Помочь проекту", simplePopFunc,),
+          drawerListRow(context, Icons.question_answer, "Обратная связь", simplePopFunc,),
         ],
       ),
     );
