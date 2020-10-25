@@ -4,22 +4,44 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:tritri/models/human.dart';
 
 class DBHelper with ChangeNotifier {
   static const String mainTableName = "Humans";
-  // static const String skillTableName = "Skills";
-  // static const String linkTableName = "linkSkillsToHumans";
+  static const String _databasePath = "Android/data/com.zkerriga.tritri/data";
+  static const String _absoluteDatabasePath = "/storage/emulated/0/$_databasePath";
+  static const String normalDatabasePath = "$_databasePath/$mainTableName.db";
   Database db;
 
   DBHelper() {
     initDB();
   }
+
+  initPermissions() async {
+    final status = await Permission.storage.status;
+    if (status.isUndetermined) {
+      if (await Permission.storage.request().isGranted) {
+        print("[+] Permissions ok!");
+      }
+      else {
+        openAppSettings();
+      }
+    }
+    if (await Permission.speech.isPermanentlyDenied) {
+      // The user opted to never again see the permission request dialog for this
+      // app. The only way to change the permission's status now is to let the
+      // user manually enable it in the system settings.
+      openAppSettings();
+    }
+  }
   initDB() async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = join(documentsDirectory.path, "$mainTableName.db");
+    await initPermissions();
+    final Directory documentsDirectory = Directory(_absoluteDatabasePath);
+    documentsDirectory.create(recursive: true);
+    final String path = join(documentsDirectory.absolute.path, "$mainTableName.db");
     db = await openDatabase(
         path,
         version: 1,
@@ -36,7 +58,7 @@ class DBHelper with ChangeNotifier {
           );
         },
     );
-    // print("[+] INIT DB");
+    // print("[+] $path");
     notifyListeners();
   }
   Future<void> insert(Map<String, dynamic> data) async {

@@ -1,22 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:tritri/models/myColors.dart';
-import 'package:tritri/widgets/myAppBar.dart';
 import 'package:tritri/database/databaseHelper.dart';
 
 class SyncPage extends StatelessWidget {
   const SyncPage({Key key}) : super(key: key);
 
-  Future<String> getPath() async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    return documentsDirectory.absolute.path;
-  }
-
   @override
   Widget build(BuildContext context) {
-    Future<String> path = getPath();
 
     return Scaffold(
       appBar: AppBar(
@@ -42,21 +34,10 @@ class SyncPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
-                child: Text("Синхронизация пока не работает.\n\nНо базу данных можно достать или положить вручную.\nОна должна храниться по данному пути:"),
+                child: Text("Синхронизация пока не работает.\n\nНо базу данных можно достать или положить вручную.\nОна должна храниться во внутренней памяти телефона по данному пути:"),
               ),
               Divider(),
-              FutureBuilder<String>(
-                future: path,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text("${snapshot.data}/${DBHelper.mainTableName}.db");
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  // By default, show a loading spinner.
-                  return CircularProgressIndicator();
-                },
-              ),
+              Text("${DBHelper.normalDatabasePath}"),
               Divider(),
             ],
           )
