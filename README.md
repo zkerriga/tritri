@@ -1,4 +1,4 @@
-# tritri
+# TriTri
 
 📱📓 Cross-platform app for iOS and Android for organizing information about friends!
 
