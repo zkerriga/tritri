@@ -16,7 +16,9 @@ extension _StringExtension on String {
         .replaceAll(RegExp(r"[ ,.]+$"), "")
         .toLowerCase()
         .replaceAll(RegExp(r"[ ,.]+"), _splitter)
-        .split(_splitter);
+        .split(_splitter)
+        .toSet()
+        .toList();
   }
 }
 

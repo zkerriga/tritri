@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:tritri/models/myColors.dart';
 import 'package:tritri/database/databaseHelper.dart';
@@ -9,6 +10,7 @@ class SyncPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final humanData = Provider.of<DataProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +39,7 @@ class SyncPage extends StatelessWidget {
                 child: Text("Синхронизация пока не работает.\n\nНо базу данных можно достать или положить вручную.\nОна должна храниться во внутренней памяти телефона по данному пути:"),
               ),
               Divider(),
-              Text("${DBHelper.normalDatabasePath}"),
+              Text(humanData.dataPath),
               Divider(),
             ],
           )

@@ -10,11 +10,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:tritri/models/human.dart';
 
 class DBHelper with ChangeNotifier {
+  String _normalDatabasePath;
   static const String mainTableName = "Humans";
-  static const String _databasePath = "Android/data/com.zkerriga.tritri/data";
-  static const String _absoluteDatabasePath = "/storage/emulated/0/$_databasePath";
-  static const String normalDatabasePath = "$_databasePath/$mainTableName.db";
   Database db;
+
+  String get normalDataPath => _normalDatabasePath;
 
   DBHelper() {
     initDB();
@@ -39,9 +39,10 @@ class DBHelper with ChangeNotifier {
   }
   initDB() async {
     await initPermissions();
-    final Directory documentsDirectory = Directory(_absoluteDatabasePath);
-    documentsDirectory.create(recursive: true);
-    final String path = join(documentsDirectory.absolute.path, "$mainTableName.db");
+    final Directory basicPath = await getExternalStorageDirectory();
+    basicPath.create(recursive: true);
+    final String path = join(basicPath.absolute.path, "$mainTableName.db");
+    _normalDatabasePath = path;
     db = await openDatabase(
         path,
         version: 1,
@@ -58,7 +59,7 @@ class DBHelper with ChangeNotifier {
           );
         },
     );
-    // print("[+] $path");
+    // print("[+] path = $path");
     notifyListeners();
   }
   Future<void> insert(Map<String, dynamic> data) async {
@@ -85,6 +86,7 @@ class DataProvider with ChangeNotifier {
       fetchAndSetData();
   }
 
+  String get dataPath => dbHelper.normalDataPath;
   int get skillsQuantity => _skillsSet.length;
   int get hobbiesQuantity => _hobbiesSet.length;
   List<Human> get items => [..._items];
