@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:tritri/models/myColors.dart';
 
@@ -37,6 +39,19 @@ class NotCompletePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 20),
                     child: Text("Страница в разработке"),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "@zkerriga",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 10, color: MyColors.purple
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch("https://t.me/zkerriga");
+                        },
+                    ),
                   ),
                 ],
               ),

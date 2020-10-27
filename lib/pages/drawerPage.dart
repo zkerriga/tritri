@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/myColors.dart';
+import 'package:tritri/pages/helpProjectPage.dart';
 import 'package:tritri/pages/syncPage.dart';
 import 'package:tritri/pages/notCompletePage.dart';
 
@@ -65,6 +66,12 @@ class DrawerPage extends StatelessWidget {
           builder: (context) => SyncPage(),
       ));
     };
+    final Function openHelpProjectPage = () {
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => HelpProjectPage(),
+      ));
+    };
     final Function openNotCompletePage = (String title) {
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(
@@ -116,7 +123,7 @@ class DrawerPage extends StatelessWidget {
           drawerListRow(context, Icons.palette, "Кастомизация", () {openNotCompletePage("Кастомизация");},),
           drawerListRow(context, Icons.settings, "Настройки", () {openNotCompletePage("Настройки");},),
           drawerListRow(context, Icons.change_history, "Достижения", () {openNotCompletePage("Достижения");},),
-          drawerListRow(context, Icons.payment, "Помочь проекту", () {openNotCompletePage("Помочь проекту");},),
+          drawerListRow(context, Icons.payment, "Помочь проекту", openHelpProjectPage,),
           drawerListRow(context, Icons.question_answer, "Обратная связь", () {openNotCompletePage("Обратная связь");},),
         ],
       ),
