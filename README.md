@@ -1,16 +1,11 @@
 # tritri
 
-My first mobile app for networking!
+📱📓 Cross-platform app for iOS and Android for organizing information about friends!
 
-## Getting Started
+### Problem:
+There are a lot of people around us who have a huge number of skills that could be useful in a project or in life. But it's too difficult to remember all the details! :sob:
 
-This project is a starting point for a Flutter application.
+### Solution:
+So I decided to write an app for people who feel the power of connections! :star:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app will help you quickly save information about a new friend. And then use the internal search engine to quickly find a person by their skill or name.
