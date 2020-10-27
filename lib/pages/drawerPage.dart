@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tritri/database/databaseHelper.dart';
 import 'package:tritri/models/myColors.dart';
 import 'package:tritri/pages/syncPage.dart';
+import 'package:tritri/pages/notCompletePage.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key key}) : super(key: key);
@@ -58,14 +59,18 @@ class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final humanData = Provider.of<DataProvider>(context, listen: false);
-    final Function simplePopFunc = () { Navigator.pop(context); };
     final Function openSyncPage = () {
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(
           builder: (context) => SyncPage(),
       ));
     };
-
+    final Function openNotCompletePage = (String title) {
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => NotCompletePage(title: title),
+      ));
+    };
     return Drawer(
       elevation: 4,
       child: ListView(
@@ -108,11 +113,11 @@ class DrawerPage extends StatelessWidget {
             ),
           ),
           drawerListRow(context, Icons.sync, "Синхронизация", openSyncPage,),
-          drawerListRow(context, Icons.palette, "Кастомизация", simplePopFunc,),
-          drawerListRow(context, Icons.settings, "Настройки", simplePopFunc,),
-          drawerListRow(context, Icons.change_history, "Достижения", simplePopFunc,),
-          drawerListRow(context, Icons.payment, "Помочь проекту", simplePopFunc,),
-          drawerListRow(context, Icons.question_answer, "Обратная связь", simplePopFunc,),
+          drawerListRow(context, Icons.palette, "Кастомизация", () {openNotCompletePage("Кастомизация");},),
+          drawerListRow(context, Icons.settings, "Настройки", () {openNotCompletePage("Настройки");},),
+          drawerListRow(context, Icons.change_history, "Достижения", () {openNotCompletePage("Достижения");},),
+          drawerListRow(context, Icons.payment, "Помочь проекту", () {openNotCompletePage("Помочь проекту");},),
+          drawerListRow(context, Icons.question_answer, "Обратная связь", () {openNotCompletePage("Обратная связь");},),
         ],
       ),
     );
